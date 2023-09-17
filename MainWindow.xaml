@@ -1,0 +1,71 @@
+﻿<Window x:Class="WPF_Kutyak.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_Kutyak"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <!--#region Definitions-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!--#endregion-->
+
+        <!--#region StackPanel-->
+        <StackPanel>
+            <Button x:Name="btn_3feladat" 
+                    Content="3. Feladat" 
+                    Click="btn_3feladat_Click"/>
+            <Button x:Name="btn_6feladat" 
+                    Content="6. feladat"
+                    Click="btn_6feladat_Click"/>
+            <Button x:Name="btn_7feladat" 
+                    Content="7. feladat"
+                    Click="btn_7feladat_Click"/>
+            <Button x:Name="btn_8feladat" 
+                    Content="8. feladat"
+                    Click="btn_8feladat_Click"/>
+            <Button x:Name="btn_9feladat" 
+                    Content="9. feladat"
+                    Click="btn_9feladat_Click"/>
+        </StackPanel>
+        <!--#endregion-->
+
+        <!--#region Result TextBlock-->
+        <TextBlock x:Name="tbl_Result" Grid.Column="1"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Grid.ColumnSpan="2"/>
+        <!--#endregion-->
+
+        <!--#region DatePicker-->
+        <DatePicker Grid.Row="1" x:Name="dp_datum" Text="" SelectedDateChanged="dp_datum_SelectedDateChanged"/>
+        <!--#endregion-->
+
+        <!--#region ListView-->
+        <DataGrid Grid.Row="1" 
+                 Grid.Column="1"
+                 Grid.RowSpan="2"
+                 Grid.ColumnSpan="2"
+                 AutoGenerateColumns="True"
+                 x:Name="dg_kutyak"
+                 CanUserAddRows="False"
+                 CanUserDeleteRows="False"
+                 CanUserResizeColumns="False"
+                 CanUserResizeRows="False"
+                 AllowDrop="False"
+                 >
+
+        </DataGrid>
+        <!--#endregion-->
+    </Grid>
+</Window>
