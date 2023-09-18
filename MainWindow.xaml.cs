@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -116,18 +118,46 @@ namespace WPF_Kutyak
         }
         private void btn_9feladat_Click(object sender, RoutedEventArgs e)
         {
+            IGrouping<DateTime, Dog> busiestDay = dogs.GroupBy(dog => dog.LastMedicalCheck).
+                OrderByDescending(dog => dog.Count()).First();
+            tbl_Result.Text = $" 9.feladat: Legjobban leterhelt nap: " +
+                $"{busiestDay.Key} : {busiestDay.Count()} kutya";
 
         }
 
 
+        private void btn_10feladat_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog svDialog = new();
+            svDialog.Filter = "Txt files (*.txt)|*.txt";
+            svDialog.FileName = "Névstatisztika";
+            if((bool)svDialog.ShowDialog()!)
+            {
+                // Még én magam se tudom, hogy ezt mégis hogy csináltam
+                IGrouping<int, Dog>[] nameQuery = dogs.GroupBy(dog => dog.NameID)
+                    .OrderByDescending(dog => dog.Count()).ToArray();
+                using(StreamWriter sw = new(svDialog.FileName))
+                {
+                    foreach(var name in nameQuery)
+                    {
+                        sw.WriteLine($"{nameDict[name.Key]};{name.Count()}");
+                    }
+                }
+                MessageBox.Show("szöveges fájl sikeresen létrehozva",
+                    "Success",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+
+        }
         #endregion
 
         private void dp_datum_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            List<Dog> query = dogs.Where(dog => dog.LastMedicalCheck == dp_datum.SelectedDate).ToList();
-            dg_kutyak.ItemsSource = query;
-            tbl_Result.Text = query.Count == 0 ? "Nem volt ellenőrzés ezen a napon" : 
-                $"{query.Count} db kutya volt ezen a napon";
+            List<Dog> DateQuery = dogs.Where(dog => dog.LastMedicalCheck == dp_datum.SelectedDate).ToList();
+            dg_kutyak.ItemsSource = DateQuery;
+            tbl_Result.Text = DateQuery.Count == 0 ? "Nem volt ellenőrzés ezen a napon" : 
+                $"{DateQuery.Count} kutya volt ezen a napon";
            
         }
 

@@ -9,7 +9,7 @@
     <Grid>
         <!--#region Definitions-->
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="120"/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -37,6 +37,9 @@
             <Button x:Name="btn_9feladat" 
                     Content="9. feladat"
                     Click="btn_9feladat_Click"/>
+            <Button x:Name="btn_10feladat"
+                    Content="10. feladat"
+                    Click="btn_10feladat_Click"/>
         </StackPanel>
         <!--#endregion-->
 
